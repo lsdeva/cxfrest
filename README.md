@@ -1,3 +1,3 @@
 # cxfrest
 
-initial setup to respond api invoke
+initial setup for respond to api invokes
