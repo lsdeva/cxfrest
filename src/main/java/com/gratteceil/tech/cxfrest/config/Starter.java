@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.gratteceil.tech.cxfrest")
+@ComponentScan(basePackages = "com.gratteceil.tech")
 @EntityScan(basePackages = "com.gratteceil.tech.cxfrest.modle")
 @EnableJpaRepositories(basePackages = "com.gratteceil.tech.cxfrest.repo")
 public class Starter {
