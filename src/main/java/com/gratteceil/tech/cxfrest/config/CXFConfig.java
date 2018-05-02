@@ -8,11 +8,14 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.swagger.Swagger2Feature;
+import org.apache.cxf.interceptor.security.JAASLoginInterceptor;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.gratteceil.tech.auth.AuthenticationHandler;
+import com.gratteceil.tech.auth.TestRequestFilter;
 import com.gratteceil.tech.cxfrest.controler.UserController;
 
 @Configuration
@@ -26,7 +29,9 @@ class CXFConfig {
       endpoint.setProvider(new JacksonJsonProvider());
       bus.getInInterceptors().add(new LoggingInInterceptor());
       bus.getOutInterceptors().add(new LoggingOutInterceptor());
-
+      bus.getInInterceptors().add(new JAASLoginInterceptor());
+      
+//      endpoint.getProviders().add(testFilter());
       endpoint.setBus(bus);
       endpoint.setAddress("/");
       endpoint.setServiceBeans(Arrays.<Object>asList(userController()));
@@ -37,5 +42,10 @@ class CXFConfig {
   @Bean
   public UserController userController() {
       return new UserController();
+  }
+  
+  @Bean
+  public TestRequestFilter testFilter() {
+	  return new TestRequestFilter();
   }
 }
